@@ -1,4 +1,7 @@
 {
   "name": "RealOrAI",
-  "displayName": "RealOrAI"
+  "displayName": "RealOrAI",
+  "plugins": [
+    "expo-asset"
+  ]
 }

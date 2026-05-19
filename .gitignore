@@ -34,6 +34,9 @@ local.properties
 *.keystore
 !debug.keystore
 
+# Supabase credentials (copy from supabase.env.example.ts)
+src/config/supabase.env.ts
+
 # node.js
 #
 node_modules/
