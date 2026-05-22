@@ -1,0 +1,17 @@
+# RealOrAI — déployé via Supabase GitHub Integration
+# https://supabase.com/docs/guides/deployment/branching/github-integration
+#
+# Les migrations dans supabase/migrations/ sont appliquées automatiquement
+# sur push/merge vers la branche de production (activer "Deploy to production").
+
+[db]
+major_version = 15
+
+[db.migrations]
+enabled = true
+
+# Bucket public pour les fichiers image (JPG/WebP)
+[storage.buckets.deck]
+public = true
+file_size_limit = "10MiB"
+allowed_mime_types = ["image/jpeg", "image/png", "image/webp"]

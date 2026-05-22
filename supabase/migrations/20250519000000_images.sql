@@ -1,5 +1,5 @@
--- Real or AI — catalogue d'images
--- Exécuter dans Supabase SQL Editor ou via: supabase db push
+-- Real or AI — table catalogue d'images (schéma)
+-- Déployé via supabase/migrations + GitHub Integration
 
 create table if not exists public.images (
   id text primary key,

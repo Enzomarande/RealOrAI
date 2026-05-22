@@ -5,12 +5,16 @@
 1. [supabase.com](https://supabase.com) → **New project**
 2. Récupère **Project URL** et **anon public key** (Settings → API)
 
-## 2. Schéma + données
+## 2. Schéma + données (GitHub Integration)
 
-Dans **SQL Editor**, exécute dans l’ordre :
+Si le repo est lié à Supabase (**Integrations → GitHub**, branche `main`, **Deploy to production** activé) :
 
-1. `migrations/20250519000000_images.sql` — table `images` + RLS lecture publique
-2. `seed.sql` — 20 images du catalogue local
+1. Push sur `main` → applique automatiquement `supabase/migrations/` :
+   - `20250519000000_images.sql` — table + RLS
+   - `20250519000001_seed_images.sql` — 20 cartes démo
+2. `config.toml` déploie aussi le bucket Storage **`deck`** (public)
+
+Sinon, dans **SQL Editor**, exécute les mêmes fichiers à la main.
 
 ## 3. Configurer l’app
 
