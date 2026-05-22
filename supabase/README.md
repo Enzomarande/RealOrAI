@@ -5,16 +5,35 @@
 1. [supabase.com](https://supabase.com) → **New project**
 2. Récupère **Project URL** et **anon public key** (Settings → API)
 
-## 2. Schéma + données (GitHub Integration)
+## 2. Déployer les migrations (obligatoire pour voir Database → Migrations)
 
-Si le repo est lié à Supabase (**Integrations → GitHub**, branche `main`, **Deploy to production** activé) :
+L’onglet **Database → Migrations** reste **vide** tant qu’aucun `supabase db push` n’a tourné. Un simple lien GitHub ne suffit pas toujours.
 
-1. Push sur `main` → applique automatiquement `supabase/migrations/` :
-   - `20250519000000_images.sql` — table + RLS
-   - `20250519000001_seed_images.sql` — 20 cartes démo
-2. `config.toml` déploie aussi le bucket Storage **`deck`** (public)
+### Option A — GitHub Actions (recommandé)
 
-Sinon, dans **SQL Editor**, exécute les mêmes fichiers à la main.
+1. **Supabase** → ton projet → **Settings → General** : copie le **Project ID** (ref, ex. `abcdefghijklmnop`)
+2. **Settings → Database** : note le **Database password** (ou reset)
+3. [supabase.com/dashboard/account/tokens](https://supabase.com/dashboard/account/tokens) → **Generate new token** (accès au projet)
+4. **GitHub** → repo `RealOrAI` → **Settings → Secrets and variables → Actions** → **New repository secret** :
+   - `SUPABASE_ACCESS_TOKEN` = token compte
+   - `SUPABASE_PROJECT_ID` = Project ID
+   - `SUPABASE_DB_PASSWORD` = mot de passe DB
+5. **Actions** → workflow **Deploy Supabase migrations** → **Run workflow** (ou push sur `main`)
+
+Quand c’est OK : **Database → Migrations** affiche `20250519000000` et `20250519000001`.
+
+### Option B — SQL Editor (immédiat, sans historique Migrations)
+
+**SQL Editor** → exécute dans l’ordre :
+
+1. `migrations/20250519000000_images.sql`
+2. `migrations/20250519000001_seed_images.sql`
+
+Les tables existent, mais l’onglet Migrations peut rester vide (normal si pas passé par le CLI).
+
+### Option C — Intégration GitHub Supabase (branching)
+
+**Project Settings → Integrations → GitHub** : repo `Enzomarande/RealOrAI`, branche **`main`**, **Deploy to production** activé. Si rien ne part, utilise l’option A.
 
 ## 3. Configurer l’app
 
